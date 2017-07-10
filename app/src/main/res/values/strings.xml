@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ProyectoFinal</string>
+    <string name="title_activity_ubicacion_destino">Map</string>
+</resources>
