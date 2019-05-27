@@ -8,13 +8,13 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
-import javax.xml.datatype.Duration;
+//import javax.xml.datatype.Duration;
 
 /**
  * Created by Mai Thanh Hiep on 4/3/2016.
  */
 public class Route {
-    public Distance distance;
+    public Distancia distance;
     //public Duration duration;
     public String endAddress;
     public LatLng endLocation;

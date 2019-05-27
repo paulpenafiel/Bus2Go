@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.usuario.proyectofinal">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -23,8 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Inicio" />
-        <activity android:name=".Listalineas" />
+        <activity
+            android:name=".Inicio"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -39,7 +46,50 @@
 
         <activity
             android:name=".UbicacionDestino"
-            android:label="@string/title_activity_ubicacion_destino"></activity>
+            android:label="@string/title_activity_ubicacion_destino"
+            android:parentActivityName=".Inicio">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Inicio" />
+        </activity>
+
+        <activity android:name=".Consulta"
+            android:parentActivityName=".Inicio">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Inicio" />
+        </activity>
+        <activity android:name=".Resultado"
+            android:parentActivityName=".Consulta">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Consulta" />
+        </activity>
+        <activity android:name=".InfoBus"
+            android:parentActivityName=".UbicacionDestino">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UbicacionDestino" />
+        </activity>
+        <activity
+            android:name=".RegistroUsuario"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".ListaUsos"
+            android:parentActivityName=".Inicio">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Inicio" />
+        </activity>
+        <activity android:name=".CServicio"
+            android:parentActivityName=".ListaUsos">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ListaUsos" />
+        </activity>
     </application>
 
 </manifest>

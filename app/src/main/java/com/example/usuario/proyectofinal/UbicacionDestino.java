@@ -2,6 +2,7 @@ package com.example.usuario.proyectofinal;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.support.v4.app.ActivityCompat;
@@ -13,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -25,6 +28,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.Polyline;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +42,7 @@ public class UbicacionDestino extends FragmentActivity implements OnMapReadyCall
     private List<Marker> destinationMarkers = new ArrayList<>();
     private List<Polyline> polylinePaths = new ArrayList<>();
     private ProgressDialog progressDialog;
-
+////////////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +61,7 @@ public class UbicacionDestino extends FragmentActivity implements OnMapReadyCall
             }
         });
     }
-
+////////////////////////
     private void sendRequest() {
         String origin = etOrigin.getText().toString();
         String destination = etDestination.getText().toString();
@@ -77,7 +81,7 @@ public class UbicacionDestino extends FragmentActivity implements OnMapReadyCall
         }
     }
 
-
+///////////////////////////////////////
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -97,7 +101,7 @@ public class UbicacionDestino extends FragmentActivity implements OnMapReadyCall
         LatLng quito = new LatLng(-0.2102, -78.4887);
         mMap.addMarker(new MarkerOptions().position(quito).title("Marker in Quito"));
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(quito, 11));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(quito, 10));
         //mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         originMarkers.add(mMap.addMarker(new MarkerOptions()
                 .title("lalalalal")
@@ -115,7 +119,7 @@ public class UbicacionDestino extends FragmentActivity implements OnMapReadyCall
         mMap.setMyLocationEnabled(true);
 
     }
-
+///////////////////////////////////////////////
     @Override
     public void onDirectionFinderStart() {
 
@@ -152,6 +156,26 @@ public class UbicacionDestino extends FragmentActivity implements OnMapReadyCall
 
             polylinePaths.add(mMap.addPolyline(polylineOptions));
         }
+    }
+    ///////////////////////////////////////////////////////
+    public void irInfoBus(View view) throws UnsupportedEncodingException {
+        String DIRECTION_URL_API = "https://maps.googleapis.com/maps/api/directions/json?";
+        String GOOGLE_API_KEY = "AIzaSyA9mnKY8qy5qT2iSUDXjzjfPokiAOnDlfU";
+        String origen=etOrigin.getText().toString();
+        String Destino=etDestination.getText().toString();
+        String urlOrigin = URLEncoder.encode(origen, "utf-8");
+        String urlDestination = URLEncoder.encode(Destino, "utf-8");
+        String URL=DIRECTION_URL_API + "origin=" + urlOrigin + "&destination=" + urlDestination + "&mode=transit&key=" + GOOGLE_API_KEY;
+
+        ////ACCESO AL RECURSO WEB
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        //////
+        Bundle extras = new Bundle();
+        extras.putString("EXTRA_URL",URL);
+        Intent intent = new Intent(this,InfoBus.class);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 
 }
